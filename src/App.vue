@@ -6,15 +6,15 @@ const ts_code = ref("")
 
 function onTrans() {
   let code = java_code.value
-  code = code.trim().replaceAll("public", "").replaceAll("private", "")
+  code = code.trim().replaceAll("public", "").replaceAll("private", "").replaceAll(/\s+@JsonIgnore\n.*/g, "")
   let code_lines = code.split("\n")
   code_lines = code_lines.map(line => {
     if (line.includes("class")) {
       return line.replace("class", "export interface")
     }
     if (line.endsWith(";")) {
-      console.log(line.match(/(\s*)(\w+)(\s*)(\w+);/));
-      const parts = line.match(/(\s*)(\w+)(\s*)(\w+);/)
+      const parts = line.match(/(\s*)(\w+)(\[])?(\s*)(\w+);/)
+      console.log(parts);
       if (parts) {
         const leading_space = parts[1]
         let param_type = parts[2]
@@ -24,8 +24,10 @@ function onTrans() {
         if (["Date", "String"].includes(param_type)) {
           param_type = "string"
         }
-        const param_name = parts[4]
-        return `${leading_space}${param_name}: ${param_type}`
+        const param_arrya = parts[3] == undefined ? "" : parts[3]
+        const param_name = parts[5]
+
+        return `${leading_space}${param_name}: ${param_type}${param_arrya}`
       }
     }
     return line
