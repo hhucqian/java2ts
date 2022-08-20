@@ -24,6 +24,10 @@ function onTrans() {
           param_array = "[]"
           param_type = param_type.substring(0, param_type.length - 2)
         }
+        if (param_type.search(/List<(\S+)>/) >= 0) {
+          param_array = "[]"
+          param_type = param_type.match(/List<(?<type>\S+)>/)?.groups?.type ?? "";
+        }
         if (["int", "Integer", "double", "Double", "float", "Float"].includes(param_type)) {
           param_type = "number"
         }
