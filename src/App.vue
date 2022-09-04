@@ -48,17 +48,33 @@ function onTrans() {
 
 <template>
   <div class="main">
-    <div class="code">
+    <div class="code row">
       <textarea cols="120" rows="20" placeholder="JAVA 代码" v-model="java_code"></textarea>
     </div>
-    <div class="code">
+    <div class="code row">
       <textarea cols="120" rows="20" placeholder="TypeScript 代码" v-model="ts_code"></textarea>
     </div>
-    <div class="cmd">
+    <div class="cmd row">
       <button @click="onTrans">转换</button>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .row {
+    margin-bottom: 6px;
+  }
+
+  .cmd {
+    button {
+      padding: 4px 8px;
+      font-size: medium;
+    }
+  }
+}
 </style>

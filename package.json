@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "scss": "^0.2.4",
+    "sass": "^1.54.8",
     "vue": "^3.2.37"
   },
   "devDependencies": {
